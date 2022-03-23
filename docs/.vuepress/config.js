@@ -1,6 +1,13 @@
 module.exports = {
     title: '小赵的Blog',
     description: '小赵的Blog 赵登辉',
+    base: '/Blog/',
+    theme: 'reco',
+    locales: {
+        '/': {
+            lang: 'zh-CN'
+        }
+    },
     themeConfig: {
         nav: [
             { text: '首页', link: '/' },
