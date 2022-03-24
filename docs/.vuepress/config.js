@@ -1,7 +1,7 @@
 module.exports = {
     title: '小赵的Blog',
     description: '小赵的Blog 赵登辉',
-    base: '/Blog/',
+    base: '/Blog/web',
     theme: 'reco',
     locales: {
         '/': {
