@@ -9,6 +9,7 @@ module.exports = {
         }
     },
     themeConfig: {
+        lastUpdated: '上次更新',
         nav: [
             { text: '首页', link: '/' },
             {
