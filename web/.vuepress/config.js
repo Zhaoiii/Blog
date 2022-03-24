@@ -55,5 +55,19 @@ module.exports = {
                 ],
             },
         ]
-    }
+    },
+    head: [
+        [
+            'script', {}, `
+          var _hmt = _hmt || [];
+            (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?360b302beeadc2d9027f1f3a152d9ed1";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+            })();
+            </script>
+          `
+        ]
+    ]
 }
