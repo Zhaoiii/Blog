@@ -3,6 +3,7 @@ module.exports = {
     description: '小赵的Blog 赵登辉',
     base: '/Blog/docs/',
     theme: 'reco',
+    dest: '/blog/docs',
     locales: {
         '/': {
             lang: 'zh-CN'
