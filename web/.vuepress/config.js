@@ -24,54 +24,77 @@ module.exports = {
             {
                 title: '胡诌诌',
                 path: '/',
-                collapsable: false, // 不折叠
+                collapsable: true,
+                children: [
+                    { title: "学前必读", path: "/" }
+                ]
             },
             {
                 title: "学习",
                 path: '/study/',
-                collapsable: false, // 不折叠
+                collapsable: true,
                 children: [
-                    // {
-                    //     title: "canvas",
-                    //     path: '/study/canvas',
-                    // }
+                    {
+                        title: "js",
+                        path: "/study/",
+                    },
+                    {
+                        title: "canvas",
+                        path: "/study/canvas",
+                    }
                 ],
             },
             {
                 title: "工作",
                 path: '/job/',
-                collapsable: false, // 不折叠
+                collapsable: true,
                 children: [
+                    {
+                        title: "入职了",
+                        path: "/job/",
+                    },
+                    {
+                        title: "test",
+                        path: "/job/test",
+                    }
                 ],
             },
             {
                 title: "生活",
                 path: '/life/',
-                collapsable: false, // 不折叠
+                collapsable: true,
                 children: [
+                    {
+                        title: "生活开始了",
+                        path: "/life/",
+                    },
                 ],
             },
             {
                 title: "其他",
                 path: '/other/',
-                collapsable: false, // 不折叠
+                collapsable: true,
                 children: [
+                    {
+                        title: "其他",
+                        path: "/other/",
+                    },
                 ],
             },
         ]
     },
-    head: [
-        [
-            'script', {}, `
-          var _hmt = _hmt || [];
-            (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?360b302beeadc2d9027f1f3a152d9ed1";
-            var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-            })();
-            </script>
-          `
-        ]
-    ]
+    // head: [
+    //     [
+    //         'script', {}, `
+    //       var _hmt = _hmt || [];
+    //         (function() {
+    //         var hm = document.createElement("script");
+    //         hm.src = "https://hm.baidu.com/hm.js?360b302beeadc2d9027f1f3a152d9ed1";
+    //         var s = document.getElementsByTagName("script")[0]; 
+    //         s.parentNode.insertBefore(hm, s);
+    //         })();
+    //         </script>
+    //       `
+    //     ]
+    // ]
 }
