@@ -6,6 +6,6 @@ rm -rf ./docs
 npm run build
 # mv  ./web/.vuepress/dist ./docs
 git add .
-git commit -m "feat: deploy"
+git commit -m "deploy"
 git push https://github.com/Zhaoiii/Blog.git
 echo "deployed"
