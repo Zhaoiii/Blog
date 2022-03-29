@@ -1,7 +1,7 @@
 module.exports = {
     title: '小赵的Blog',
     description: '小赵的Blog 赵登辉',
-    base: '/Blog/web',
+    base: '/Blog/',
     theme: 'reco',
     locales: {
         '/': {
@@ -31,6 +31,10 @@ module.exports = {
                 path: '/study/',
                 collapsable: false, // 不折叠
                 children: [
+                    // {
+                    //     title: "canvas",
+                    //     path: '/study/canvas',
+                    // }
                 ],
             },
             {
