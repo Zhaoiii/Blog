@@ -2,8 +2,8 @@
 
 # 确保脚本抛出遇到的错误
 set -e
-npm run build
 rm -rf ./docs
+npm run build
 mv  ./web/.vuepress/dist ./docs
 git add .
 git commit -m "feat: deploy"
