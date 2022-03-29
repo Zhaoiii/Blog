@@ -34,14 +34,8 @@ module.exports = {
                 path: '/study/',
                 collapsable: true,
                 children: [
-                    {
-                        title: "js",
-                        path: "/study/",
-                    },
-                    {
-                        title: "canvas",
-                        path: "/study/canvas",
-                    }
+                    { title: "js", path: "/study/", },
+                    { title: "canvas", path: "/study/canvas", }
                 ],
             },
             {
@@ -49,14 +43,8 @@ module.exports = {
                 path: '/job/',
                 collapsable: true,
                 children: [
-                    {
-                        title: "入职了",
-                        path: "/job/",
-                    },
-                    {
-                        title: "test",
-                        path: "/job/test",
-                    }
+                    { title: "入职了", path: "/job/", },
+                    { title: "test", path: "/job/test", }
                 ],
             },
             {
@@ -64,10 +52,7 @@ module.exports = {
                 path: '/life/',
                 collapsable: true,
                 children: [
-                    {
-                        title: "生活开始了",
-                        path: "/life/",
-                    },
+                    { title: "生活开始了", path: "/life/", },
                 ],
             },
             {
@@ -75,10 +60,7 @@ module.exports = {
                 path: '/other/',
                 collapsable: true,
                 children: [
-                    {
-                        title: "其他",
-                        path: "/other/",
-                    },
+                    { title: "其他", path: "/other/", },
                 ],
             },
         ]
