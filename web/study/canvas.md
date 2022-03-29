@@ -38,50 +38,67 @@ if (canvas.getContext){
 
 ![图片alt](../../img/canvas-coordinate.png '图片title')
 
-在渲染上下文的时候我们拿到了画笔，这个时候我们要开始作图，我们应该怎么做呢？首先所有的图形都是由线段组成的，一个图形是一组线段的组合。这里我们称为一个路径。所以：
-1. 首先我需要选定一个起点
-2. 然后我们选择一个终点
-3. 连接他们，连接时可以用直线或者弧线
-4. 然后我们再从现在这个终点再画向下一个点
-5. 当然中途我们可能抬起笔选择一个新的点而不是接着上一个线段的终点
+一个图形都是由不同的线段组成的，在这里我们称为一个路径，绘制一个路径的步骤：
+1. 首先，你需要创建路径起始点。
+2. 然后你使用画图命令去描述出路径。
+3. 之后你把路径封闭，当然这是不一定的。
+4. 一旦路径生成，你就能通过描边或填充路径区域来渲染图形。1
 
-以上的操作有对应的一些API
+其中基本的函数有：
+
 1. `beginPath()`：创建一条路径
 2. `moveTo(x, y)`： 将笔触移动到指定的坐标上。将笔放在画纸上的某个点
 3. `closePath()`：闭合路径， 从最后一个终点闭合至最开始的起点
-4. `stroke()`: 使用线条来绘制
+4. `stroke()`: 使用线条来正真的绘制出来
 5. `fill()`：填充路径的内容区域来生成实心图形
 
+> 开始绘制后一般第一步都是 `moveTo` 而后是使用函数指定绘制路径，最后是 `closePath` ，但是他不是必须的。其中，在调用 `fill` 时会自动闭合
+
+绘制大致分为两步：
+1. 第一步先是描绘路径
+2. 然后再通过 `stroke` 或者 `fill` 来真正绘制出来
+
+
 ### 绘制线段
-想象一下画一条直线需要什么条件，大家肯定都知道需要知道起点和终点。在这里是通过 `lineTo(x, y)`, 指定线段的终点。那线段的起点在哪呢？
 
-在开始的时候起点是在原点的，在我们画了一条线段之后，这个时候起点就变成了上一条直线的终点了。可以想象成一只画笔，在开始的时候笔是在原点的，在给了他一个终点之后他就从原点到终点画了一条线。这时笔停留在的地方就是上一条直线的要终点，此时如果我们再给他一个终点那么他将会从上一条线的终点到新的终点继续画一条线。
+绘制一条直线的函数是： `lineTo(x, y)`
 
-我们可以试着画一个三角形，他一共需要三个步骤，我们可以举个例：
-1. 从原点到 (50,50)
-2. 从 (50,50) 到 (50,100)
-3. 再从 (50, 100) 回到原点也就是 (0, 0)
-那么我们的代码就是
+他以上一点为起点，指定的点为起点描绘一条直线。完成后笔触就会在现在的点的位置，除非手动移动他。
+
+例如我们可以画一个三角形
+
 ```js
-ctx.lineTo(50, 50);
+ctx.beginPath();
+ctx.moveTo(150,150)
+ctx.lineTo(50, 20);
 ctx.lineTo(50, 100);
-ctx.lineTo(0, 0);
+ctx.closePath(); // 也可 ctx.lineTo(200,200)
+ctx.stroke(); // 或者使用 fill 绘制实心三角形
 ```
 
 <template>
-  <canvas id="my-canvas1" width="400px" height="400px" style="border: 1px solid black">
+  <canvas id="my-canvas1" width="200px" height="200px" style="border: 1px solid black">
+    你的浏览器不支持canvas
+  </canvas>
+  <canvas id="my-canvas2" width="200px" height="200px" style="border: 1px solid black">
     你的浏览器不支持canvas
   </canvas>
   <script>
     const myCanvas1 = document.getElementById("my-canvas1");
     const ctx1 = myCanvas1.getContext("2d");
+    const myCanvas2 = document.getElementById("my-canvas2");
+    const ctx2 = myCanvas2.getContext("2d");
     ctx1.beginPath();
-    ctx1.moveTo(200,200)
+    ctx1.moveTo(150,150)
     ctx1.lineTo(50, 20);
     ctx1.lineTo(50, 100);
-    // ctx1.closePath()
-    // ctx1.stroke();
-    ctx1.fill()
+    ctx1.closePath()
+    ctx1.stroke();
+    ctx2.beginPath();
+    ctx2.moveTo(150,150);
+    ctx2.lineTo(50, 20);
+    ctx2.lineTo(50, 100);
+    ctx2.fill();
 </script>
 </template>
 
