@@ -36,7 +36,7 @@ if (canvas.getContext){
 ## 绘制图形
 画布的坐标系统如下图所示, 在画布中坐标表示为 (x, y)， 左上角为原点 (0, 0)。
 
-![图片alt](../../img/canvas-coordinate.png '图片title')
+![坐标示意](../../img/canvas-coordinate.png '坐标示意')
 
 一个图形都是由不同的线段组成的，在这里我们称为一个路径，绘制一个路径的步骤：
 1. 首先，你需要创建路径起始点。
@@ -59,20 +59,20 @@ if (canvas.getContext){
 2. 然后再通过 `stroke` 或者 `fill` 来真正绘制出来
 
 
-### 绘制线段
+### 绘制直线
 
-绘制一条直线的函数是： `lineTo(x, y)`
+描绘一条直线的函数是： `lineTo(x, y)`
 
-他以上一点为起点，指定的点为起点描绘一条直线。完成后笔触就会在现在的点的位置，除非手动移动他。
+他以上一点或者手动指定的点为起点，指定的点为终点描绘一条直线。完成后笔触就会停留在现在的点的位置上，除非手动移动他。
 
-例如我们可以画一个三角形
+例如我们可以画一个三角形。首先描绘出三角形的样子，再通过画轮廓或者填充正真的画出来。
 
 ```js
 ctx.beginPath();
 ctx.moveTo(150,150)
 ctx.lineTo(50, 20);
 ctx.lineTo(50, 100);
-ctx.closePath(); // 也可 ctx.lineTo(200,200)
+ctx.closePath(); // 也可 ctx.lineTo(150,150)
 ctx.stroke(); // 或者使用 fill 绘制实心三角形
 ```
 
@@ -83,7 +83,8 @@ ctx.stroke(); // 或者使用 fill 绘制实心三角形
   <canvas id="my-canvas2" width="200px" height="200px" style="border: 1px solid black">
     你的浏览器不支持canvas
   </canvas>
-  <script>
+</template>
+<script>
     const myCanvas1 = document.getElementById("my-canvas1");
     const ctx1 = myCanvas1.getContext("2d");
     const myCanvas2 = document.getElementById("my-canvas2");
@@ -100,11 +101,24 @@ ctx.stroke(); // 或者使用 fill 绘制实心三角形
     ctx2.lineTo(50, 100);
     ctx2.fill();
 </script>
-</template>
+
+
+### 绘制曲线
+
+一般我们使用二次贝塞尔曲线及三次贝塞尔曲线绘制曲线。
+
+他们都需要两个点，一个起点一个终点。不同的是二次贝塞尔曲线只有一个控制点，而三次贝塞尔曲线有两个控制点。
+
+![贝塞尔曲线](../../img/Canvas_curves.png '贝塞尔曲线')
+
+- `quadraticCurveTo(cp1x, cp1y, x, y)`：描绘一个二次贝塞尔曲线
+- `bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)`： 描绘一个三次贝塞尔曲线
 
 
 
 ### 绘制矩形
+
+用上面的方法如果画一个矩形的画需要很多步，canvas 提供了几个方法可以直接画出矩形
 
 1. `fillRect(x, y, width, height)`
   绘制一个填充的矩形
@@ -112,6 +126,8 @@ ctx.stroke(); // 或者使用 fill 绘制实心三角形
   绘制一个矩形边框
 3. `clearRect(x, y, width, height)`
   清除一个区域，让清除的部分变成透明的
+4. `rect(x, y, width, height)`
+  描绘一个矩形，还需要再使用函数画出来
 
 ```js
 ctx.fillRect(40,40,80,40);
@@ -122,11 +138,189 @@ ctx.clearRect(45,45,50,20);
   <canvas id="my-canvas" width="400px" height="400px" style="border: 1px solid black">
     你的浏览器不支持canvas
   </canvas>
-  <script>
+</template>
+<script>
     const myCanvas = document.getElementById("my-canvas");
     const ctx = myCanvas.getContext("2d");
     ctx.fillRect(40,40,80,40);
     ctx.strokeRect(30,30,100,70);
     ctx.clearRect(45,45,50,20);
+    ctx.rect(120, 120, 50,80);
+    ctx.stroke()
 </script>
+
+### 绘制圆弧
+
+canvas也提供了绘制圆弧的方法:
+- `arc(x, y, raduis, startAngle, endAngle, anticlockwise)`：描绘一个以(x, y)为圆心， radius 为半径，从 startAngle 开始到 endAngle， anticlockwise 为方向（顺时针或者逆时针）的圆弧。
+> 其中角度单位为弧度，`弧度=(Math.PI/180)*角度`。anticlockwise 取值为布尔值，true是顺时针，默认为顺时针。
+
+<template>
+  <canvas id="my-canvas4" width="200px" height="200px" style="border: 1px solid black">
+    你的浏览器不支持canvas
+  </canvas>
 </template>
+<script>
+    const myCanvas4 = document.getElementById("my-canvas4");
+    const ctx4 = myCanvas4.getContext("2d");
+    ctx4.arc(100,100,50,0,(Math.PI/180)*360, true);
+    ctx4.stroke()
+</script>
+
+## Path2D对象
+
+他可以记录一个路径以便重复使用，很大的一个用处就是用 SVG 来初始化他.
+实例： 
+```js
+var canvas = document.getElementById('canvas');
+  if (canvas.getContext){
+    var ctx = canvas.getContext('2d');
+    var p = new Path2D("M10 10 h 80 v 80 h -80 Z"); // 可以这样使用 SVG 路径初始化
+    var circle = new Path2D();
+    circle.moveTo(125, 35);
+    circle.arc(100, 35, 25, 0, 2 * Math.PI);
+    ctx.fill(circle);
+  }
+}
+```
+
+## 样式和颜色
+
+### 设置颜色
+
+在正式画出来之前我们可以设置画笔的颜色，有 
+- `fillStyle = color`
+- `strokeStyle = color`
+分别对应 fill 的颜色和 stroke 的颜色。设置的颜色可以是 表示CS颜色值的字符串
+```js
+ctx.fillStyle = "red"
+ctx.fillStyle = "#eeeeee"
+ctx.fillStyle = "rgb(0, 255, 0)"
+ctx.fillStyle = "rgba(0, 255, 0, .5)"
+```
+
+> 当设置过颜色后，之后的默认颜色就是设置的颜色了。如果需要新的颜色需要重新设置
+
+### 设置透明度
+
+可以通过设置 `globalAlpha` 来设置透明度。他的值为 0.0(完全透明) - 1.0(完全不透明)；
+但是在平时我们设置利用设置颜色可以设置 rgba 的特性来实现透明更方便。
+
+
+### 设置线条的样式
+- `lineWidth = value`： 设置线条宽度
+  默认值为 1.0 
+
+- `lineCap = type`：设置线条末端样式
+  值为`butt`，`round` 和 `square`。默认是 `butt`。
+  - `butt`：在末端什么都不加
+  - `round`：在末端会有线宽的半圆
+  - `square`： 在末端会有线宽的方块
+
+- `lineJoin = type`：设置线条结合处样式
+  `round`, `bevel` 和 `miter`。默认是 `miter`
+  - `miter`：两条线结合处不做处理
+  - `round`：两条线结合处被磨成弧形
+  - `bevel`：两条线结合处抹平
+
+- `miterLimit = value`：限制两条线相交时交界处最大长度
+
+- `getLineDash()`：返回一个当前虚线样式，长度为非负偶数数组
+- `setLineDash(segments)`：设置当前虚线样式
+  值为一个数组 [v1, v2] ， 其中 v1 为横线长度， v2 为间隔长度
+- `lineDashOffset = value`：设置虚线样式偏移量
+  起始的偏移量
+
+### 渐变
+
+先创建一个 `canvasGradient` 对象，再赋值给上下文的 `fillStyle` 或者 `strokeStyle`,
+创建 `canvasGradient` 有两个方法：
+-  `createLinearGradient(x1, y1, x2, y2)`：创建一个渐变的起点为 (x1, y1) 终点为 (x2, y2) 的 `canvasGradient` 对象。
+-  `createRadialGradient(x1, y1, r1, x2, y2, r2)`：创建一个前三个参数和后三个参数分别组成的两个圆形的 `canvasGradient` 对象。
+
+在创建完 `canvasGradient` 对象后，就对他们的颜色进行设置，使用他的 `addColorStop` 方法对他的颜色进行设置。
+
+- `gradient.addColorStop(position, color)`： `position` 是一个 0.0 - 1.0的数值，他表示在渐进中的相对位置（类似百分比）。第二个参数就是颜色，接受一个css颜色值。表示在哪个位置是什么颜色的。
+
+```js
+var lineargradient = ctx.createLinearGradient(0, 0, 0, 50)
+lineargradient.addColorStop(0, 'red')
+lineargradient.addColorStop(1, '#fff')
+ctx.fillStyle = lineargradient;
+```
+
+### 图案 Patterns
+
+- `createPatern(image, type)`： `image` 可以是一个 Image 对象的引用， 也可以是另一个 `canvas` 对象。 `type` 的取值可以是： `repeat`、 `no-repeat`、 `repeat-y` 和 `repeat-x` 四个之一。
+
+> 类似 `background-image`
+
+
+### 阴影
+
+- `shadowOffsetX = float`
+  用来设定阴影在 x 轴的延申距离，正值表示向右，负值表示向左。
+- `shadowOffsetY = float`
+  用来设定阴影在 y 轴的延申距离，正值表示向下，负值表示向上。
+- `shadowBlur = float`
+  设定阴影的模糊程度
+- `shadowColor = color`
+  设定阴影的颜色
+
+### 填充规则
+
+当我们使用 `fill` 填充是可以选择填充规则，看一个栗子
+
+```js
+ctx.beginPath();
+ctx.arc(100, 100, 10, 0, Math.PI * 2, true);
+ctx.arc(100, 100, 20, 0, Math.PI * 2, true);
+ctx.arc(100, 100, 30, 0, Math.PI * 2, true);
+ctx.arc(100, 100, 40, 0, Math.PI * 2, true);
+ctx.arc(100, 100, 50, 0, Math.PI * 2, true);
+ctx.fill("evenodd");
+```
+
+- `nonzero`
+  默认值， 会填充最大的一个圆  
+- `evenodd`
+  填充奇数的圆环？
+
+
+## 绘制文本
+
+- `fillText(text, x, y [, maxWidth])`
+
+- `strokeText(text, x, y [, maxWidth])`
+
+### 文本的样式
+
+可以通过修改一些属性来修改文本的样式
+- `font = value`
+  和 css 的 font  属性相同， 默认值是 `10px sans-serif`
+
+- `testAlign = value`
+  文本对齐，可选的值有：`start`、 `end`、 `left`、`right` 和 `center`
+
+- `testBaseLine = value`
+  基线设置，可选的值有：`top`、 `hanging`、 `middle`、 `alphabetic`、`ideographic` 和 `bottom`
+
+- `direction = value`
+  文本方向： 可选值有： `ltr`、 `rtl`、 `inherit`
+
+### 获得文本的宽度
+
+如果想要获得文本的宽度可以使用
+- `measureText('text')`
+  他会返回一个 `TextMetrics` 对象的宽度、所在像素等信息
+例如
+
+```js
+function draw() {
+  var ctx = document.getElementById('canvas').getContext('2d');
+  var text = ctx.measureText("foo"); // TextMetrics object
+  text.width; // 16;
+}
+```
+
+## 渲染图片
