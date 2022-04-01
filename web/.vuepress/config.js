@@ -56,6 +56,15 @@ module.exports = {
                 ],
             },
             {
+                title: "力扣",
+                path: '/leetcode/',
+                collapsable: true,
+                children: [
+                    { title: "力扣", path: "/leetcode/", },
+                    { title: "448.找到所有数组中消失的数字", path: "/leetcode/448.找到所有数组中消失的数字", },
+                ],
+            },
+            {
                 title: "其他",
                 path: '/other/',
                 collapsable: true,
