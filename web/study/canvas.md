@@ -3,7 +3,7 @@
 WebGL（Web图形库）是一个JavaScript API，可在任何兼容的Web浏览器中渲染高性能的交互式3D和2D图形，而无需使用插件。WebGL通过引入一个与OpenGL ES 2.0非常一致的API来做到这一点，该API可以在HTML5 `<canvas>`元素中使用。 这种一致性使API可以利用用户设备提供的硬件图形加速。
 Canvas API 提供了一个通过JavaScript 和 HTML的`<canvas>`元素来绘制图形的方式。它可以用于动画、游戏画面、数据可视化、图片编辑以及实时视频处理等方面。
 
-Canvas API主要聚焦于2D图形。而同样使用`<canvas>`元素的 WebGL API 则用于绘制硬件加速的2D和3D图形。
+Canvas API主要聚焦于 2D 图形。而同样使用`<canvas>`元素的 WebGL API 则用于绘制硬件加速的2D和3D图形。
 
 首先我们需要创建一个 `canvas` 元素, 他只有两个属性， `width` 和 `height`，在没有设置这两个值时他们的宽高默认值是 300 和 150 。
 ``` html
@@ -121,13 +121,13 @@ ctx.stroke(); // 或者使用 fill 绘制实心三角形
 用上面的方法如果画一个矩形的画需要很多步，canvas 提供了几个方法可以直接画出矩形
 
 1. `fillRect(x, y, width, height)`
-  绘制一个填充的矩形
+    绘制一个填充的矩形
 2. `strokeRect(x, y, width, height)`
-  绘制一个矩形边框
+    绘制一个矩形边框
 3. `clearRect(x, y, width, height)`
-  清除一个区域，让清除的部分变成透明的
+    清除一个区域，让清除的部分变成透明的
 4. `rect(x, y, width, height)`
-  描绘一个矩形，还需要再使用函数画出来
+    描绘一个矩形，还需要再使用函数画出来
 
 ```js
 ctx.fillRect(40,40,80,40);
@@ -313,7 +313,7 @@ ctx.fill("evenodd");
 如果想要获得文本的宽度可以使用
 - `measureText('text')`
   他会返回一个 `TextMetrics` 对象的宽度、所在像素等信息
-例如
+  例如
 
 ```js
 function draw() {
