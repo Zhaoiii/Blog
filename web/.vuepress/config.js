@@ -44,7 +44,8 @@ module.exports = {
                 collapsable: true,
                 children: [
                     { title: "入职了", path: "/job/", },
-                    { title: "test", path: "/job/test", }
+                    { title: "test", path: "/job/test", },
+                    { title: "ci/cd", path: "/job/ci", }
                 ],
             },
             {
