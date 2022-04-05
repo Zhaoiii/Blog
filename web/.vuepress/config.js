@@ -35,7 +35,8 @@ module.exports = {
                 collapsable: true,
                 children: [
                     { title: "js", path: "/study/", },
-                    { title: "canvas", path: "/study/canvas", }
+                    { title: "canvas", path: "/study/canvas", },
+                    { title: "es6", path: "/study/es6", }
                 ],
             },
             {
