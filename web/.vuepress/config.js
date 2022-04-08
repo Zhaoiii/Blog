@@ -89,5 +89,11 @@ module.exports = {
             </script>
           `
         ]
+    ],
+    Plugin: [
+        (pluginOptions, context) => ({
+            name: '../../plugins/test.js',
+            // ... the rest of options
+          })
     ]
 }
