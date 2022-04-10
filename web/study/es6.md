@@ -144,6 +144,16 @@ bar // "bbb"
 ```js
 let { foo: baz } = { foo: 'aaa', bar: 'bbb' };
 baz // "aaa"
-// 实际
+// 实际，其实是匹配的后者
 let { foo: foo } = { foo: 'aaa', bar: 'bbb' }; // 正常的只是简写了
+```
+
+- 结构也可以用于嵌套对象
+```js
+let obj = {
+  p: [
+    'Hello',
+    { y: 'World' }
+  ]
+}
 ```
